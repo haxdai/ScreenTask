@@ -4,16 +4,20 @@
  * and open the template in the editor.
  */
 
-package screentask;
+package com.hasdaipacheco.screentask.server;
 
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.SocketPermission;
+
+import javax.swing.JTextArea;
+
+import com.hasdaipacheco.screentask.Resources;
+import com.hasdaipacheco.screentask.screenshot.ScreenThread;
 import com.sun.net.httpserver.BasicAuthenticator;
 import com.sun.net.httpserver.HttpContext;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
-import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.net.SocketPermission;
-import javax.swing.JTextArea;
 
 /**
  *

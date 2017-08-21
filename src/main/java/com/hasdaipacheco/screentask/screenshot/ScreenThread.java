@@ -4,11 +4,13 @@
  * and open the template in the editor.
  */
 
-package screentask;
+package com.hasdaipacheco.screentask.screenshot;
 
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.hasdaipacheco.screentask.ui.MainForm;
 
 /**
  *
@@ -30,9 +32,9 @@ public class ScreenThread extends Thread {
                     ScreenShot.takeScreenshot(_every,_mousePointer);
                 }
             } catch (IOException ex) {
-                Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
             } catch (Exception ex) {
-                Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 

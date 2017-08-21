@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package screentask;
+package com.hasdaipacheco.screentask.server;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;

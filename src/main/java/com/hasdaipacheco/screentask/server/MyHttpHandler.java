@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 
-package screentask;
+package com.hasdaipacheco.screentask.server;
 
+import com.hasdaipacheco.screentask.Resources;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import java.awt.image.BufferedImage;

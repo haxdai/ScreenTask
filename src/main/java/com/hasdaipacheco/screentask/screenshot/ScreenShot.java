@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package screentask;
+package com.hasdaipacheco.screentask.screenshot;
 
 import java.awt.AWTException;
 import java.awt.Dimension;
@@ -30,6 +30,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
+
+import com.hasdaipacheco.screentask.Resources;
 
 /**
  *

@@ -3,27 +3,34 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package screentask;
+package com.hasdaipacheco.screentask.ui;
 
-import com.sun.net.httpserver.*;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.Image;import java.awt.event.ActionEvent;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.SocketException;
 import java.net.URISyntaxException;
-import java.util.logging.*;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+
+import com.hasdaipacheco.screentask.Resources;
+import com.hasdaipacheco.screentask.screenshot.ScreenShot;
+import com.hasdaipacheco.screentask.screenshot.ScreenThread;
+import com.hasdaipacheco.screentask.server.Network;
+import com.hasdaipacheco.screentask.server.WebServer;
+import com.sun.net.httpserver.HttpServer;
 
 /**
  *
  * @author Ahmad
  */
-public class frmMain extends javax.swing.JFrame {
+public class MainForm extends javax.swing.JFrame {
 
     HttpServer serv;
     boolean isWorking=false;
@@ -33,7 +40,7 @@ public class frmMain extends javax.swing.JFrame {
      * @throws java.net.SocketException
      */
     
-    public frmMain() throws SocketException, IOException, URISyntaxException {
+    public MainForm() throws SocketException, IOException, URISyntaxException {
         setTitle("Screen Task");
 	setSize(620,420);
 	
@@ -41,7 +48,8 @@ public class frmMain extends javax.swing.JFrame {
     
         setLayout(new BorderLayout());
         
-        Image img = javax.imageio.ImageIO.read(getClass().getResourceAsStream("/images/ScreenTaskBackground.png"));
+        
+        Image img = javax.imageio.ImageIO.read(ClassLoader.getSystemClassLoader().getResourceAsStream("images/ScreenTaskBackground.png"));
         setContentPane(new JLabel(new ImageIcon(img)));
 	setLayout(new FlowLayout());
 	
@@ -417,51 +425,7 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 }//GEN-LAST:event_jMenuItem2ActionPerformed
 
 JFrame frame = null;
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) throws SocketException {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    frmMain f = new frmMain();
-                    f.setLocationRelativeTo(null);
-                    f.setVisible(true);
-                } catch (IOException ex) {
-                    Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (URISyntaxException ex) {
-                    Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-
-    }
-  
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnStartServer;
     private javax.swing.JComboBox cbmIP;
