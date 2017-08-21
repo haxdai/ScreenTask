@@ -7,9 +7,7 @@
 package com.hasdaipacheco.screentask.screenshot;
 
 import java.awt.AWTException;
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.Point;
@@ -21,15 +19,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.xml.parsers.ParserConfigurationException;
-import org.xml.sax.SAXException;
 
 import com.hasdaipacheco.screentask.Resources;
 
@@ -39,9 +32,7 @@ import com.hasdaipacheco.screentask.Resources;
  */
 
 public class ScreenShot {
-    
-    
-    
+    private static final String tempDir = System.getProperty("java.io.tmpdir");
     public static void takeScreenshot(int every,Boolean drawCursor ) throws AWTException, IOException, Exception{
         Robot robot = new Robot();
          
@@ -67,17 +58,18 @@ public class ScreenShot {
          * Filename where to save the file to.
          * I am appending formatted timestamp to the filename.
          */
-        
-        Resources resource = new Resources();
-        String startDir = resource.appStartUpPath();
        
-        String fileNameToSaveTo = startDir+"/WebServer/ScreenTask.jpg";
+        String fileNameToSaveTo = tempDir+"/ScreenTask/ScreenTask.jpg";
          
         /**
          * Write the captured image to a file.
          */
+        File f = new File(fileNameToSaveTo);
+        if (!f.exists()) {
+        		f.mkdirs();
+        }
         
-        ImageIO.write(screenCapture, "jpg", new File(fileNameToSaveTo));
+        ImageIO.write(screenCapture, "jpg", f);
     }
     
     private static void drawMousePointer(BufferedImage screenCapture) throws IOException, URISyntaxException{
@@ -102,9 +94,9 @@ public class ScreenShot {
         //Application startup directory
         Resources resource = new Resources();
         
-        String startDir = resource.appStartUpPath();
+        //String startDir = resource.appStartUpPath();
         
-        imagePath = startDir+"/WebServer/ScreenTask.jpg";
+        imagePath = tempDir+"/WebServer/ScreenTask.jpg";
        
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Image image = toolkit.getImage(imagePath);
