@@ -22,9 +22,9 @@
 <body>
   <nav class="navbar navbar-expand navbar-dark bg-dark fixed-top justify-content-between">
     <a class="navbar-brand" href="#">ScreenTask</a>
-    <div class="btn-group" role="group" aria-label="Basic example">
-      <a id="btnFullscreen" class="btn btn-secondary" href=""><span class="fa fa-arrows-alt"></span></a>
-      <a id="btnStartStop" data-state="stop" class="btn btn-secondary" href=""><span class="fa fa-stop"></span></a>
+    <div class="btn-group" role="group" aria-label="Controls">
+      <button id="btnFullscreen" class="btn btn-secondary"><span class="fa fa-expand"></span></button>
+      <button id="btnStartStop" data-state="stop" class="btn btn-secondary" href=""><span class="fa fa-stop"></span></button>
     </div>
   </nav>
   <div class="container">
@@ -36,68 +36,68 @@
   </div>
 
   <script>
-    (function(){
-        var refreshInterval = 300;
-        var timeout = null;
-        var ImagePreview = document.getElementById('imgPrev');
+  (function(){
+    var refreshInterval = 300;
+    var timeout = null;
+    var ImagePreview = document.getElementById('imgPrev');
 
-        function reloadPreview() {
-            var preloaded = new Image();
-            preloaded.onload = function() {
-                ImagePreview.src = this.src;
-                if (timeout) {
-                    clearTimeout(timeout);
-                    timeout = null;
-                }
-                timeout = setTimeout(reloadPreview, refreshInterval);
-            };
-            preloaded.onerror = function(){
-                if (timeout) {
-                    clearTimeout(timeout);
-                    timeout = null;
-                }
-                timeout = setTimeout(reloadPreview, refreshInterval);
-            };
+    function reloadPreview() {
+      var preloaded = new Image();
+      preloaded.onload = function() {
+        ImagePreview.src = this.src;
+        if (timeout) {
+          clearTimeout(timeout);
+          timeout = null;
+        }
+        timeout = setTimeout(reloadPreview, refreshInterval);
+      };
+      preloaded.onerror = function(){
+        if (timeout) {
+          clearTimeout(timeout);
+          timeout = null;
+        }
+        timeout = setTimeout(reloadPreview, refreshInterval);
+      };
 
-            preloaded.src= 'ScreenTask.jpg?rand=' + Math.random();
-        };
+      preloaded.src= 'ScreenTask.jpg?rand=' + Math.random();
+    };
 
+    reloadPreview();
+
+    //var timer = setInterval(reloadPreview, refreshInterval);
+    var btn = document.getElementById('btnStartStop');
+    btn.onclick = function (evt) {
+      if (btn.getAttribute('data-state') == 'stop') {
+        btn.setAttribute('data-state', 'start');
+        btn.innerHTML = '<span class="fa fa-play"></span>';
+        if (timeout) {
+          clearTimeout(timeout);
+          timeout = null;
+        }
+      } else {
+        btn.setAttribute('data-state', 'stop');
+        btn.innerHTML = '<span class="fa fa-stop"></span>';
         reloadPreview();
+      }
+    };
 
-        //var timer = setInterval(reloadPreview, refreshInterval);
-        var btn = document.getElementById('btnStartStop');
-        btn.onclick = function (evt) {
-          evt.preventDefault();
-            if (btn.getAttribute('data-state') == 'stop') {
-                btn.setAttribute('data-state', 'start');
-                //btn.innerHTML = "Start";
-                clearTimeout(timeout);
-                timeout = null;
-            } else {
-                btn.setAttribute('data-state', 'stop');
-                //btn.innerHTML = "Stop";
-                reloadPreview();
-            }
-        };
+    function requestFullScreen(element) {
+      var elem    = document.getElementById(element);
+      var calls   = ['requestFullScreen','webkitRequestFullScreen','mozRequestFullScreen','msRequestFullScreen'];
 
-        function requestFullScreen(element) {
-            var elem    = document.getElementById(element);
-            var calls   = ['requestFullScreen','webkitRequestFullScreen','mozRequestFullScreen','msRequestFullScreen'];
+      for(var i = 0; i < calls.length; i++){
+        if(elem[calls[i]]){
+          elem[calls[i]]();
+          return;
+        }
+      }
+    };
 
-            for(var i = 0; i < calls.length; i++){
-                if(elem[calls[i]]){
-                    elem[calls[i]]();
-                    return;
-                }
-            }
-        };
-
-        var btnFullscreen = document.getElementById('btnFullscreen');
-        btnFullscreen.onclick = function (evt) {
-          evt.preventDefault();
-            requestFullScreen("imgPrev");
-        };
-    })();
-    </script>
+    var btnFullscreen = document.getElementById('btnFullscreen');
+    btnFullscreen.onclick = function (evt) {
+      requestFullScreen("imgPrev");
+    };
+  })();
+  </script>
 </body>
 </html>

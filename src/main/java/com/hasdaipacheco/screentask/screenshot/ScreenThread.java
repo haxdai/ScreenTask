@@ -16,7 +16,7 @@ import com.hasdaipacheco.screentask.ui.MainForm;
  *
  * @author Ahmad
  */
-public class ScreenThread extends Thread {
+public class ScreenThread implements Runnable {//extends Thread {
     
         private volatile boolean isRunning = true;
         private int _every;

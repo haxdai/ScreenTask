@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.SocketException;
 import java.net.URISyntaxException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -332,7 +334,16 @@ public class MainForm extends javax.swing.JFrame {
                 if(isWorking){
                     screenThread = new ScreenThread(every, chkMousePointer.isSelected());
                 
-                screenThread.start();
+                //screenThread.start();
+                    ExecutorService ex = Executors.newCachedThreadPool();
+                    Runtime.getRuntime().addShutdownHook(new Thread() {
+                        @Override
+                        public void run() {
+                            ex.shutdownNow();
+                        }
+                    });
+
+                    ex.execute(screenThread);
                 
                 String url = "http://" + ipAddress + ":" + port;
                 txtURL.setText(url);
