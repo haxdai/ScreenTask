@@ -39,6 +39,7 @@ public class MyHttpHandler implements HttpHandler {
 
 		String path = "";
 		boolean isImage = false;
+		boolean isFont = false;
 		URI uri = httpExchange.getRequestURI();
 		String uriPath = uri.getPath();
 		
@@ -52,12 +53,34 @@ public class MyHttpHandler implements HttpHandler {
 		} else if (uriPath.contains("/ScreenTask.jpg")) {
 			path = tempDir + "/ScreenTask/ScreenTask.jpg";
 			isImage = true;
+		} else if (uriPath.contains("/fonts/fontawesome-webfont")) {
+			isFont = true;
+			path = "webserver/fonts/fontawesome-webfont.";
+			if (uriPath.contains(".woff")){
+				path += "woff";
+			} else if (uriPath.contains(".woff2")){
+				path += "woff2";
+			} if (uriPath.contains(".ttf")){
+				path += "ttf";
+			}
 		} else {
 			path = "";// uri.getPath().toString();
 		}
 		
-		if (!isImage) {
-			//Get resource and write it
+		if (isFont) {
+			URL resUrl = ClassLoader.getSystemClassLoader().getResource(path);
+			if (null != resUrl) {
+				InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream(path);
+				byte[] bytes = IOUtils.toByteArray(is);
+				httpExchange.sendResponseHeaders(200, bytes.length);
+				_outputStream.write(bytes);
+			}
+		} else if (isImage) {
+			File file = new File(path);
+			if (file.exists()) {
+				writeImage(file);
+			}
+		} else {
 			URL resUrl = ClassLoader.getSystemClassLoader().getResource(path);
 			if (null != resUrl) {
 				InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream(path);
@@ -67,11 +90,7 @@ public class MyHttpHandler implements HttpHandler {
 
 				httpExchange.sendResponseHeaders(200, content.length());
 				_outputStream.write(content.getBytes());
-			}
-		} else {
-			File file = new File(path);
-			if (file.exists()) {
-				writeImage(file);
+
 			}
 		}
 		_outputStream.close();
