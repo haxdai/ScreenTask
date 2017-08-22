@@ -1,6 +1,6 @@
 ScreenTask
 ==========
-Java App to share your screen over the same internal network.
+Java App to share your screen on any Web browser over the same internal network.
 Forked from Ahmed Omar Repository https://github.com/ahmadomar/ScreenTask
 
 ## Quick start
