@@ -8,84 +8,96 @@
 
   <link href="bootstrap.min.css" rel="stylesheet" />
   <link href="fontawesome.min.css" rel="stylesheet" />
+  <style text="text/css">
+  body {
+    padding-top: 4.5rem;
+    background-color: #eee;
+  }
+
+  .main-content {
+    padding-top: 15px;
+  }
+  </style>
 </head>
 <body>
+  <nav class="navbar navbar-expand navbar-dark bg-dark fixed-top justify-content-between">
+    <a class="navbar-brand" href="#">ScreenTask</a>
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <a id="btnFullscreen" class="btn btn-secondary" href=""><span class="fa fa-arrows-alt"></span></a>
+      <a id="btnStartStop" data-state="stop" class="btn btn-secondary" href=""><span class="fa fa-stop"></span></a>
+    </div>
+  </nav>
   <div class="container">
     <div class="row">
-      <div class="col-md-12">
-        <a id="btnStartStop" data-state="stop" class="btn btn-outline-success" role="button"><span class="fa fa-stop"></span>Stop</a>
-        <a id="btnFullscreen" class="btn btn-default pull-right"><span class="fa fa-stop"></span>Full screen</a>
-      </div>
-    </div>
-    <div class="row">
-      <div id="Viewer" class="col-xs-12">
-        <img id="imgPrev" src="ScreenTask.jpg" class="img-responsive" alt="LIVE! Sever Screen Now!" />
+      <div id="Viewer" class="col-md-12">
+        <img id="imgPrev" src="ScreenTask.jpg" class="img-fluid img-thumbnail" alt="LIVE! Sever Screen Now!" />
       </div>
     </div>
   </div>
 
   <script>
-  (function(){
-    var refreshInterval = 300;
-    var timeout = null;
-    var ImagePreview = document.getElementById('imgPrev');
+    (function(){
+        var refreshInterval = 300;
+        var timeout = null;
+        var ImagePreview = document.getElementById('imgPrev');
 
-    function reloadPreview() {
-      var preloaded = new Image();
-      preloaded.onload = function() {
-        ImagePreview.src = this.src;
-        if (timeout) {
-          clearTimeout(timeout);
-          timeout = null;
-        }
-        timeout = setTimeout(reloadPreview, refreshInterval);
-      };
-      preloaded.onerror = function(){
-        if (timeout) {
-          clearTimeout(timeout);
-          timeout = null;
-        }
-        timeout = setTimeout(reloadPreview, refreshInterval);
-      };
+        function reloadPreview() {
+            var preloaded = new Image();
+            preloaded.onload = function() {
+                ImagePreview.src = this.src;
+                if (timeout) {
+                    clearTimeout(timeout);
+                    timeout = null;
+                }
+                timeout = setTimeout(reloadPreview, refreshInterval);
+            };
+            preloaded.onerror = function(){
+                if (timeout) {
+                    clearTimeout(timeout);
+                    timeout = null;
+                }
+                timeout = setTimeout(reloadPreview, refreshInterval);
+            };
 
-      preloaded.src= 'ScreenTask.jpg?rand=' + Math.random();
-    };
+            preloaded.src= 'ScreenTask.jpg?rand=' + Math.random();
+        };
 
-    reloadPreview();
-
-    //var timer = setInterval(reloadPreview, refreshInterval);
-    var btn = document.getElementById('btnStartStop');
-    btn.onclick = function () {
-      if (btn.getAttribute('data-state') == 'stop') {
-        btn.setAttribute('data-state', 'start');
-        btn.innerHTML = "Start";
-        clearTimeout(timeout);
-        timeout = null;
-      } else {
-        btn.setAttribute('data-state', 'stop');
-        btn.innerHTML = "Stop";
         reloadPreview();
-      }
 
-    };
+        //var timer = setInterval(reloadPreview, refreshInterval);
+        var btn = document.getElementById('btnStartStop');
+        btn.onclick = function (evt) {
+          evt.preventDefault();
+            if (btn.getAttribute('data-state') == 'stop') {
+                btn.setAttribute('data-state', 'start');
+                //btn.innerHTML = "Start";
+                clearTimeout(timeout);
+                timeout = null;
+            } else {
+                btn.setAttribute('data-state', 'stop');
+                //btn.innerHTML = "Stop";
+                reloadPreview();
+            }
+        };
 
-    function requestFullScreen(element) {
-      var elem    = document.getElementById(element);
-      var calls   = ['requestFullScreen','webkitRequestFullScreen','mozRequestFullScreen','msRequestFullScreen'];
+        function requestFullScreen(element) {
+            var elem    = document.getElementById(element);
+            var calls   = ['requestFullScreen','webkitRequestFullScreen','mozRequestFullScreen','msRequestFullScreen'];
 
-      for(var i = 0; i < calls.length; i++){
-        if(elem[calls[i]]){
-          elem[calls[i]]();
-          return;
-        }
-      }
-    };
+            for(var i = 0; i < calls.length; i++){
+                if(elem[calls[i]]){
+                    elem[calls[i]]();
+                    return;
+                }
+            }
+        };
 
-    var btnFullscreen = document.getElementById('btnFullscreen');
-    btnFullscreen.onclick = function () {
-      requestFullScreen("imgPrev");
-    };
-  })();
-  </script>
+        var btnFullscreen = document.getElementById('btnFullscreen');
+        btnFullscreen.onclick = function (evt) {
+          evt.preventDefault();
+            requestFullScreen("imgPrev");
+        };
+    })();
+    </script>
 </body>
 </html>
