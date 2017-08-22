@@ -11,3 +11,7 @@ cd ScreenTask
 mvn clean && mvn package
 java -jar target/ScreenTask-1.0.jar
 ```
+
+## ScreenShots
+![Server config](https://docs.google.com/uc?export=download&id=0Bynob47_oE0sQlhqdlZNbXF2RHc)
+![Web UI on Tablet](https://docs.google.com/uc?export=download&id=0Bynob47_oE0sbkMyNTE1OFZrTVE)
