@@ -45,17 +45,17 @@ public class MyHttpHandler implements HttpHandler {
 		
 		if ("/".equals(uriPath)) // Route The Root Dir to the Index Page
 		{
-			path = "webserver/index.html";
+			path = "site/index.html";
 		} else if ("/bootstrap.min.css".equals(uriPath)) {
-			path = "webserver/css/bootstrap.min.css";
+			path = "site/css/bootstrap.min.css";
 		} else if ("/fontawesome.min.css".equals(uriPath)) {
-			path = "webserver/css/fontawesome.min.css";
+			path = "site/css/fontawesome.min.css";
 		} else if (uriPath.contains("/ScreenTask.jpg")) {
 			path = tempDir + "/ScreenTask/ScreenTask.jpg";
 			isImage = true;
 		} else if (uriPath.contains("/fonts/fontawesome-webfont")) {
 			isFont = true;
-			path = "webserver/fonts/fontawesome-webfont.";
+			path = "site/fonts/fontawesome-webfont.";
 			if (uriPath.contains(".woff")){
 				path += "woff";
 			} else if (uriPath.contains(".woff2")){
@@ -87,6 +87,8 @@ public class MyHttpHandler implements HttpHandler {
 				StringWriter writer = new StringWriter();
 				IOUtils.copy(is, writer);
 				String content = writer.toString();
+
+                System.out.println(content);
 
 				httpExchange.sendResponseHeaders(200, content.length());
 				_outputStream.write(content.getBytes());

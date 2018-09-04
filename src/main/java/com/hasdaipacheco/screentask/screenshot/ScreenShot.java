@@ -79,14 +79,14 @@ public class ScreenShot {
 		int y = p.y;
 
 		Image cursor = null;
-		cursor = ImageIO.read(ClassLoader.getSystemClassLoader().getResourceAsStream("webserver/cursor_arrow.png"));
+		cursor = ImageIO.read(ClassLoader.getSystemClassLoader().getResourceAsStream("site/cursor_arrow.png"));
 
 		Graphics graphics2D = screenCapture.createGraphics();
 		graphics2D.drawImage(cursor, x, y, 25, 25, null);
 	}
 
 	public static void PreviewImage(JLabel lblImage) throws URISyntaxException, MalformedURLException {
-		String imagePath = tempDir + "/WebServer/ScreenTask.jpg";
+		String imagePath = tempDir + "/site/ScreenTask.jpg";
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Image image = toolkit.getImage(imagePath);
 
